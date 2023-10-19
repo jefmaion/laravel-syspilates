@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>AdminLTE 3 | Log in (v2)</title>
+	<title>{{ config('app.name') }}</title>
 
 	@include('_template.includes.head')
 	<link rel="stylesheet" href="{{ asset('template') }}/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
