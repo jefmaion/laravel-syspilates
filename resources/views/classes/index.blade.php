@@ -47,7 +47,12 @@
 @include('_template.datatable')
     <script>
         dataTable('.datatable', {
-            ajax:'{{ route('class.index') }}',
+            ajax: {
+                url:'{{ route('class.index') }}',
+                error: function (jqXHR, textStatus, errorThrown) {
+                    showAlert('Houve um erro ao carregar os dados!', 'error')
+                }
+            },
             columns: [
                 {data: 'date'},
                 {data: 'time'},

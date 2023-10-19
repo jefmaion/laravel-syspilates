@@ -244,6 +244,8 @@ class ClassService {
                     ->with('student.user')
                     ->with('instructor')
                     ->get();
+        
+        $response = [];
 
         foreach($classes as $class) {
 

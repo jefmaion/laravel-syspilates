@@ -13,7 +13,7 @@ class TenantController extends Controller
         session()->put('tenant_id', $tenant->id);
         session()->put('tenant_name', $tenant->name);
         session()->put('tenant_theme', $tenant->theme);
-        return redirect()->back();
+        return redirect()->route('calendar.index');
     }
 
 }
