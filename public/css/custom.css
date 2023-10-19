@@ -1,0 +1,67 @@
+#toast-container.nopacity > div {
+    opacity: 1;
+}
+
+label {
+    font-weight: normal !important;
+    margin-bottom: 0px;
+}
+
+.bg-custom-sidebar-dark {
+    background-color: #353c48;
+}
+
+.bg-custom-primary {
+    background-color: #6777ef !important;
+}
+
+.bg-custom-secondary {
+    background-color: #cdd3d8 !important;
+}
+
+.bg-custom-success {
+    background-color: #54ca68 !important;
+}
+
+.bg-custom-info {
+    background-color: #3abaf4 !important;
+}
+
+.bg-custom-warning {
+    background-color: #ffa426 !important;
+}
+
+.bg-custom-danger {
+    background-color: #fc544b !important;
+}
+
+.bg-custom-light {
+    background-color: #e3eaef !important;
+}
+
+.bg-custom-dark {
+    background-color: #191d21 !important;
+    color: #fff;
+}
+
+.bg-custom-purple {
+    background-color: #9c27b0 !important;
+    color: #fff;
+}
+
+.opacity-100 {
+    opacity: 1
+}
+
+.opacity-75 {
+    opacity: 0.75
+}
+
+
+.opacity-50 {
+    opacity: 0.50
+}
+
+.opacity-25 {
+    opacity: 0.25
+}

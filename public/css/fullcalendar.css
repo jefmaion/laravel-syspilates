@@ -1,0 +1,26 @@
+.fc-event {
+    margin: 1px;
+    height: 35px;
+    box-shadow: none !important;
+    cursor: pointer;
+}
+
+
+
+.fc .fc-timegrid-slot {
+    height: 50px;
+}
+.risk {
+    text-decoration: line-through
+}
+
+.fc-event.fc-event-remark {
+    color:#000 !important;
+    cursor: default !important;
+}
+
+.fc-border-yellow  {
+    /* border-color: var(--orange) !important; */
+    background-color: rgb(255, 255, 243) !important;
+}
+

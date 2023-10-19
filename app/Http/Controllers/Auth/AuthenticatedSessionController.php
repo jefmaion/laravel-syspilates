@@ -32,7 +32,17 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        if(auth()->user()->tenants()->count() > 1) {
+            return redirect()->intended(RouteServiceProvider::HOME);
+        }
+
+        $tenant = auth()->user()->tenants->first();
+        session()->put('tenant_id', $tenant->id);
+        session()->put('tenant_name', $tenant->name);
+        session()->put('tenant_theme', $tenant->theme);
+        
+        return redirect()->route('calendar.index');
+        
     }
 
     /**

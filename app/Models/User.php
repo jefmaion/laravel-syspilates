@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -17,10 +18,8 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
+    protected $guarded = [
+        'id',
     ];
 
     /**
@@ -41,4 +40,35 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function tenants() {
+        return $this->belongsToMany(Tenant::class, 'tenant_users');
+    }
+
+
+    public function student() {
+        return $this->belongsTo(Student::class, 'id', 'user_id');
+    }
+
+    public function instructor() {
+        return $this->belongsTo(Instructor::class, 'id', 'user_id');
+    }
+
+    public function getIsBirthdayAttribute() {
+
+        if(!$this->birth_date) {
+            return false;
+        }
+
+        $birtDate = Carbon::parse($this->birth_date);
+        $today = Carbon::parse(date('Y-m-d'));
+
+        return $today->isBirthday($birtDate);
+    }
+
+
+    public function getShortNameAttribute() {
+        $names = explode(" ", $this->name);
+        return trim(array_shift($names).' '.end($names));
+    }
 }

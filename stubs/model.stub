@@ -1,0 +1,14 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Models\Traits\HasTenant;
+use App\Models\Traits\AuthUser;
+use Illuminate\Database\Eloquent\Model;
+
+class {{ class }} extends Model
+{
+    use HasTenant, AuthUser;
+
+    protected $guarded = ['id'];
+}

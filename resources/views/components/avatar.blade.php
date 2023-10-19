@@ -1,0 +1,1 @@
+<img {{ $attributes->merge(['class' => 'img-circle mr-2']) }} width="{{ $size }}" src="{{ $avatar }}" alt="User profile picture">
