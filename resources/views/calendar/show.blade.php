@@ -171,11 +171,14 @@
                                 </a>
                                 @endif
 
-                                <a class="dropdown-item" href="#">
+                                {{-- <a class="dropdown-item" href="#">
                                     <i class="fas fa-edit    "></i>
                                     Editar Aula
-                                </a>
+                                </a> 
+
                                 <div class="dropdown-divider"></div>
+
+                                --}}
                                 
                                 <a class="dropdown-item delete-class" href="#" data-toggle="modal" data-target="#modsal-delete-class">
                                     <i class="fas fa-trash-alt    "></i>
@@ -195,10 +198,10 @@
                         Fechar
                     </a>
     
-                    @if($class->isExperimental && $class->status == 1 && $class->situation == 'PP' && empty($class->student->activeRegistrations))
-                    <a class="btn bg-purple" href="{{ route('student.create', ['name' => $class->studentName, 'phone_wpp' => $class->studentPhone, 'class' => $class->id]) }}">
-                        <i class="fas fa-calendar-times    "></i> Matricular
-                    </a>
+                    @if($class->isExperimental && $class->status == 1 && $class->situation == 'PP' && !isset($class->student->activeRegistrations))
+                        <a class="btn bg-purple" href="{{ route('student.create', ['name' => $class->studentName, 'phone_wpp' => $class->studentPhone, 'class' => $class->id]) }}">
+                            <i class="fas fa-calendar-times    "></i> Matricular
+                        </a>
                     @endif
     
                     @if($class->type !== 'AN')

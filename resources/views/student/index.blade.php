@@ -34,7 +34,7 @@
             @include('student.modal.create') --}}
 
             <hr>
-            <table class="table table-sstriped datatable">
+            <table class="table table-striped datatable">
                 <thead class="thead-light">
                     <tr>
                         <th>Nome</th>

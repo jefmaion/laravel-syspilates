@@ -30,7 +30,7 @@
 </div>
 @endif
 
-
+{{-- 
 @if ($errors->any())
 <div class="alert-message alert list-group-item-warning alert-dismissible fade show" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -48,15 +48,4 @@
 </div>
 
 @endif
-
-
-@section('scripts')
-@parent
-<script>
-    // $("body").niceScroll();
-    if($('.alert-message').length > 0) {
-        $('.alert-message').delay(5000).fadeOut(500)
-    }
-</script>
-
-@endsection
+ --}}

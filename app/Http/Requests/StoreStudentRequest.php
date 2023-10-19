@@ -24,14 +24,14 @@ class StoreStudentRequest extends StoreUserRequest
     public function rules()
     {
         return array_merge(parent::rules(), [
-            'student.occupation' => 'required'
+            // 'student.occupation' => 'required'
         ]);
     }
 
     public function attributes()
     {
         return array_merge(parent::attributes(),[
-            'student.occupation' => 'Profissão'
+            // 'student.occupation' => 'Profissão'
         ]);
     }
 }

@@ -48,6 +48,13 @@
 </script>
 
 <script>
+    // $("body").niceScroll();
+    if($('.alert-message').length > 0) {
+        $('.alert-message').delay(5000).fadeOut(500)
+    }
+</script>
+
+<script>
     function showAlert(message, type) {
         type = (typeof type   === 'undefined') ? 'success' : type
         toastr.options = {
