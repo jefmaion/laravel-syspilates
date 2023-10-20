@@ -35,7 +35,7 @@ class ModalityService {
     }
 
     public function listToSelectBox() {
-        return Modality::get()->pluck('name', 'id');
+        return Modality::get()->sortBy('nameWithNick')->pluck('nameWithNick', 'id');
     }
 
     public function listToDataTable() {

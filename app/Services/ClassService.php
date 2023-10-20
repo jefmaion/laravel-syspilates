@@ -7,6 +7,7 @@ use App\Models\Registration;
 use App\Models\Transaction;
 use Exception;
 use Illuminate\Support\Facades\Session;
+use PhpParser\Builder\Class_;
 
 class ClassService {
 
@@ -188,6 +189,16 @@ class ClassService {
             'evolution' => null,
             'evolution_date' => null
         ]);
+    }
+
+    public function listClassStatusToSelectBox() {
+        $class = new Classes();
+        return $class->situationTypes;
+    }
+
+    public function listClassTypesToSelectBox() {
+        $class = new Classes();
+        return $class->classTypes;
     }
 
     public function listClassesToRepositionByStudent($idStudent) {

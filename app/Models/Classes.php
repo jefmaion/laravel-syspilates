@@ -118,12 +118,30 @@ class Classes extends Model
 
     public function getSituationTypesAttribute() {
         return  [
-            null => 'Agendada',
+            NULL => 'Agendada',
             'PP' => 'Presença',
             'FF' => 'Falta',
             'FJ' => 'Falta Justificada',
             'CC' => 'Cancelada'
         ];
+    }
+
+    public function getListPendenciesAttribute() {
+        $pendencies = [];
+
+        if($this->student->installmentsToPay->count() > 0) {
+            $pendencies[] = ['status' => 'danger', 'message' => 'Pagamentos a realizar!'];
+        }
+
+        if($this->student->repositions()->count()) { 
+            $pendencies[] = ['status' => 'warning', 'message' => 'Reposições não agendadas!'];
+        }
+
+        if($this->registration->daysToRenew <= 3) { 
+            $pendencies[] = ['status' => 'info', 'message' => 'Matrícula em '.$this->registration->modality->name . ' ' .  $this->registration->position];
+        }
+
+        return $pendencies;
     }
 
     

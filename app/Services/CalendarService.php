@@ -14,17 +14,17 @@ use Illuminate\Support\Facades\Session;
 class CalendarService {
 
 
-    public function listScheduledClass($start, $end) {
+    public function listScheduledClass($start, $end, $params=[]) {
         $status =  [
-            'PP' => 'success',
-            'FF' => 'danger',
-            'FJ' => 'warning',
-            'CC' => 'secondary',
-            ''   => 'primary',
-            'AE' => 'info' 
+            'PP' => 'olive',
+            'FF' => 'custom-danger',
+            'FJ' => 'custom-warning',
+            'CC' => 'custom-secondary',
+            ''   => 'custom-primary',
+            'AE' => 'custom-info' 
         ];
 
-       
+      
         $calendar = [];
 
         $classes = Classes::with('student.user')
@@ -33,12 +33,20 @@ class CalendarService {
                         ->with('registration.modality')
                         ->with('modality')
                         ->whereBetween('date', [$start, $end])
-                        ->orderBy('type', 'asc')
-                        ->get();
+                        ->orderBy('type', 'asc');
+
+        if($params) {
+            foreach($params as $field => $value) {
+                $classes->where($field, $value);
+            }
+        }
+        
+
+        $classes = $classes->get();
 
         foreach($classes as $event) {
 
-            $bg = 'bg-custom-'.$status[$event->situation];
+            $bg = 'bg-'.$status[$event->situation];
 
             if($event->type == 'AE' && $event->status == 0) {
                 $bg = ' bg-custom-purple';
@@ -81,7 +89,7 @@ class CalendarService {
         foreach($registrations as $reg) {
             foreach($reg->weekdays as $event) {
                 $calendar[] = [
-                    'id' => null,
+                    'id' => $reg->id,
                     'event_type' => 'recurrent',
                     'title' => '<strong>'.date('H\h\\', strtotime($event->time)) . '</strong> '. $reg->student->user->shortName . ' <sstrong>('.$reg->modality->nick.')</sstrong>',
                     'startTime' => $event->time,
@@ -101,6 +109,10 @@ class CalendarService {
 
 
         $pendencies = [];
+
+        if($event->type == 'AE') {
+            return [];
+        }
 
         if($event->student->installmentsToPay->count() > 0) {
             $pendencies[] = ['status' => 'danger', 'message' => 'Pagamentos a realizar!'];
@@ -142,6 +154,32 @@ class CalendarService {
                 ->get();
 
         return $data;
+
+    }
+
+    public function listEventsByDate($date) {
+        $classes = Classes::with('student.user')
+                        ->with('student.installmentsToPay')
+                        ->with('student.repositions')
+                        ->with('registration.modality')
+                        ->with('instructor')
+                        ->with('student.evolutions')
+                        ->with('modality')
+                        ->with('parent')
+                        ->whereDate('date', $date)
+                        ->orderBy('time', 'asc')->get();
+
+        $response = [];
+        
+        $response['day'] = dateExt($date);
+        foreach($classes as $class) {
+
+            $class->pendencies = $this->listPendencies($class);
+
+            $response['data'][$class->time][] = $class;
+        }
+
+        return $response;
 
     }
 

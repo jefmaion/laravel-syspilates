@@ -82,7 +82,7 @@ class StudentService {
     }
 
     public function listToSelectBox() {
-        return Student::with('user')->get()->pluck('user.name', 'id');
+        return Student::with('user')->get()->sortBy('user.name')->pluck('user.shortName', 'id');
     }
 
     public function listToDataTable() {

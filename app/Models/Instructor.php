@@ -23,6 +23,6 @@ class Instructor extends Model
     }
 
     public function classes() {
-        return $this->hasMany(Classes::class);
+        return $this->hasMany(Classes::class)->whereNotNull('situation');
     }
 }

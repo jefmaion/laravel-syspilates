@@ -116,10 +116,10 @@ class TransactionService {
                 'description'       => '<a href="'.route('receive.show', $transaction).'">'.$transaction->description.'</a>' ,
                 'value' => currency($transaction->value),
                 'status' => $status,
-                'category' =>  $transaction->category->name,
+                'category' =>  $transaction->category->name ?? '',
                 'method' => $transaction->method->name ?? null,
                 'actions' => '
-                            <a href="#" class="btn bg-'.theme().' btn-xs receive" onclick="receive('.$transaction->id.')">
+                            <a href="#" class="bg-'.theme().' btn-xs receive badge-pill" onclick="receive('.$transaction->id.')">
                                 <i class="fas fa-dollar-sign    "></i> Receber
                             </a>
 

@@ -4,9 +4,11 @@
         <form action="{{ route('receive.receve') }}" method="post">
             <input type="hidden" name="id" value="{{ $transaction->id }}">
             @csrf
-            <div class="modal-content">
-                <div class="modal-header bg-{{ theme() }}">
-                    <h5 class="modal-title">Receber </h5>
+            <div class="modal-content p-2">
+                <div class="modal-header border-0">
+                    <h5 class="m-0">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Receber
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -70,6 +72,12 @@
                                 value="{{ old('payment_method_id', $transaction->payment_method_id) }}" />
                         </div>
 
+                        <div class="col-12 form-group">
+                            <label>Categoria</label>
+                            <x-form.select name="category_id" :options="$categories"
+                                value="{{ old('category_id', $transaction->category_id) }}" />
+                        </div>
+
 
 
                         <div class="col-12 form-group">
@@ -79,7 +87,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer border-0">
                     <a href="#" class="mr-4 text-muted" data-dismiss="modal">Fechar</a>
                     <button type="submit" class="btn bg-{{ theme() }}">
 

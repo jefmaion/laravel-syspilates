@@ -49,13 +49,32 @@ class CalendarController extends Controller
         $instructors = $this->instructorService->listToSelectBox();
         $students    = $this->studentService->listToSelectBox();
         $modalities  = $this->modalityService->listToSelectBox();
+        $classStatus = $this->classService->listClassStatusToSelectBox();
+        $classTypes = $this->classService->listClassTypesToSelectBox();
 
-        return view('calendar.index', compact('instructors', 'modalities', 'students'));
+        $eventsDay = $this->calendarService->listEventsByDate(now());
+
+        return view('calendar.index', compact('instructors', 'modalities', 'students', 'classStatus', 'classTypes', 'eventsDay'));
     }
 
     public function list(Request $request) {
-        $calendar = $this->calendarService->listScheduledClass($request->get('start'), $request->get('end'));
+        $calendar = $this->calendarService->listScheduledClass($request->get('start'), $request->get('end'), $request->get('filter'));
         return response()->json($calendar);
+    }
+
+    public function day($date) {
+        $eventsDay = $this->calendarService->listEventsByDate($date);
+
+        return view('calendar.day', compact('eventsDay'));
+    }
+
+    public function renew($id) {
+
+        $registration  = Registration::with('student')->find($id);
+
+        // dd($registration);
+
+        return view('calendar.renew', compact('registration'));
     }
 
     public function event(Request $request) {

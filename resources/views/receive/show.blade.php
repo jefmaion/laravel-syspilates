@@ -29,7 +29,7 @@
             <div class="card-body">
                 <div>
                     <span class="badge badge-pill badge-light border">{{ $transaction->method->name ?? null }}</span>
-                    <span class="badge badge-pill badge-light border">{{ $transaction->category->name }}</span>
+                    <span class="badge badge-pill badge-light border">{{ $transaction->category->name ?? '' }}</span>
                 </div>
                 <h4 class="m-0"><strong>{{ $transaction->description }}</strong> </h4>
 

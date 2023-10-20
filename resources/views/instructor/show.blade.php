@@ -22,10 +22,12 @@
 @section('content')
 
 
+
+
 <div class="row">
     <div class="col-md-3">
 
-        <div class="card card-{{ theme() }} card-outline">
+        {{-- <div class="card card-{{ theme() }} card-outline">
             <div class="card-body box-profile">
                 <div class="text-center">
                     <x-avatar class="img-bordered-sm" :user="$instructor->user" size="64px"></x-avatar>
@@ -46,6 +48,57 @@
                     <x-icon icon="back">Voltar</x-icon>
                 </a>
 
+                <button class="btn bg-{{ theme() }} dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <x-icon icon="config"></x-icon>
+                    Ações
+                </button>
+                <div class="dropdown-menu" aria-labelledby="triggerId">
+                    <a class="dropdown-item" href="{{ route('instructor.edit', $instructor) }}">
+                        <x-icon icon="edit"></x-icon> Editar Professor
+                    </a>
+                    <a class="dropdown-item" href="{{ route('instructor.modality.index', $instructor) }}">
+                        <x-icon icon="edit">Modalidades</x-icon>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <x-modal-delete class="dropdown-item" id="{{ $instructor->id }}"
+                        route="{{ route('instructor.destroy', $instructor) }}">
+                        <x-icon icon="delete">Excluir</x-icon>
+                    </x-modal-delete>
+                </div>
+
+            </div>
+
+        </div> --}}
+
+        <div class="card card-widget widget-user">
+
+            <div class="widget-user-header bg-{{ theme() }}">
+                <h3 class="widget-user-username">{{ $instructor->user->shortName }}</h3>
+                <h5 class="widget-user-desc">{{ $instructor->occupation }}</h5>
+            </div>
+            <div class="widget-user-image">
+                <x-avatar class="img-bordered-sm" :user="$instructor->user" size="64px"></x-avatar>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    @foreach($instructor->modalities as $modality)
+                    <div class="col border-right">
+                        <div class="description-block">
+                            <span class="description-text">{{ $modality->name }}</span>
+                        </div>
+        
+                    </div>
+                    @endforeach
+                    
+        
+                </div>
+
+
+                <a name="" id="" class="btn btn-outline-secondary" href="{{ route('instructor.index') }}" role="button">
+                    <x-icon icon="back">Voltar</x-icon>
+                </a>
+
                 {{-- <a name="" id="" class="btn btn-outline-warning" href="{{ route('instructor.edit', $instructor) }}"
                     role="button">
                     <x-icon icon="edit">Editar</x-icon>
@@ -59,7 +112,8 @@
 
 
 
-                <button class="btn bg-{{ theme() }} dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn bg-{{ theme() }} dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
                     <x-icon icon="config"></x-icon>
                     Ações
                 </button>
@@ -71,13 +125,13 @@
                         <x-icon icon="edit">Modalidades</x-icon>
                     </a>
                     <div class="dropdown-divider"></div>
-                    <x-modal-delete class="dropdown-item" id="{{ $instructor->id }}" route="{{ route('instructor.destroy', $instructor) }}">
+                    <x-modal-delete class="dropdown-item" id="{{ $instructor->id }}"
+                        route="{{ route('instructor.destroy', $instructor) }}">
                         <x-icon icon="delete">Excluir</x-icon>
                     </x-modal-delete>
                 </div>
-
+        
             </div>
-
         </div>
 
 
@@ -117,10 +171,11 @@
         <div class="card card-{{ theme() }} card-outline">
             <div class="card-header p-2">
                 <ul class="nav nav-pills">
-                    <li class="nav-item"><a class="nav-link active" href="#modality" data-toggle="tab">Histórico de Aulas</a>
+                    <li class="nav-item"><a class="nav-link active" href="#modality" data-toggle="tab">Histórico de
+                            Aulas</a>
                     </li>
-                    {{-- <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Financeiro</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Agenda de Aulas</a></li> --}}
+                    <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Financeiro</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Agenda de Aulas</a></li>
                 </ul>
             </div>
             <div class="card-body">
@@ -147,15 +202,16 @@
 
                                     <td>{{ $class->modality->name }}</td>
                                     <td>
-                                        {{-- <x-avatar class="" :user="$class->student->user ?? null" size="20px"></x-avatar>  --}}
-                                        {{ $class->student->user->shortName ?? null }}
+                                        {{-- <x-avatar class="" :user="$class->student->user ?? null" size="20px">
+                                        </x-avatar> --}}
+                                        {{ $class->studentName ?? null }}
                                     </td>
                                     <td>
                                         <x-class-status status="{{ $class->situation }}">
                                             {{ $class->statusDescription }}
                                         </x-class-status>
                                     </td>
-                                    
+
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -249,52 +305,36 @@
                     </div>
 
                     <div class="tab-pane" id="settings">
-                        <form class="form-horizontal">
-                            <div class="form-group row">
-                                <label for="inputName" class="col-sm-2 col-form-label">Name</label>
-                                <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="inputName" placeholder="Name">
+                        <form action="{{ route('instructor.update', $instructor) }}" method="post">
+                            @method('put')
+                            @csrf
+                            @include('commons.formuser', ['user' => $instructor->user])
+
+                            <h6 class="my-3 border-bottom"><strong>3. Informações Adicionais</strong></h6>
+                            <div class="row">
+
+                                <div class="col-6  form-group">
+                                    <label>Formação</label>
+                                    <x-form.input type="text" name="instructor[occupation]"
+                                        value="{{ old('instructor.occupation', $instructor->occupation ?? '') }}" />
+                                </div>
+
+                                <div class="col-6  form-group">
+                                    <label>Documento da Categoria (CREF/CREFITO)</label>
+                                    <x-form.input type="text" name="instructor[document]"
+                                        value="{{ old('instructor.document', $instructor->document ?? '') }}" />
+                                </div>
+
+                                <div class="col-12 form-group">
+                                    <label>Observações</label>
+                                    <textarea class="form-control" name="instructor[comments]" id="" cols="30"
+                                        rows="3">{{ old('instructor.comments', $instructor->comments ?? '') }}</textarea>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                                <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="inputEmail" placeholder="Email">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="inputName2" class="col-sm-2 col-form-label">Name</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="inputName2" placeholder="Name">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="inputExperience" class="col-sm-2 col-form-label">Experience</label>
-                                <div class="col-sm-10">
-                                    <textarea class="form-control" id="inputExperience"
-                                        placeholder="Experience"></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="offset-sm-2 col-sm-10">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="offset-sm-2 col-sm-10">
-                                    <button type="submit" class="btn btn-danger">Submit</button>
-                                </div>
-                            </div>
+
+
+                            <button type="submit" class="btn btn-primary">Submit</button>
+
                         </form>
                     </div>
 

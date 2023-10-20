@@ -1,4 +1,4 @@
-<div class="card-comments bg-transparent" style="max-height:300px; overflow:auto; line-height: 2em">
+<div class="card-comments bg-transparent" style="height:300px; overflow:auto; line-height: 2em">
 @foreach($class->student->evolutions as $evol)
 <div class="card-comment py-3 {{ ($class->id == $evol->id) ? 'font-weight-bold' : '' }}">
 

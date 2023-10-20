@@ -64,6 +64,8 @@ Route::middleware(['auth', 'tenant'])->group(function() {
     
     Route::post('/calendar/event', [CalendarController::class, 'event'])->name('calendar.event');
     Route::get('/calendar/list', [CalendarController::class, 'list'])->name('calendar.list');
+    Route::get('/calendar/day/{day}', [CalendarController::class, 'day'])->name('calendar.day');
+    Route::get('/calendar/renew/{id}', [CalendarController::class, 'renew'])->name('calendar.renew');
     Route::get('/calendar/experimental', [CalendarController::class, 'showExperimental'])->name('calendar.show.experimental');
     Route::get('/calendar/remark', [CalendarController::class, 'showRemark'])->name('calendar.show.remark');
     Route::post('/calendar/remark', [CalendarController::class, 'remark'])->name('calendar.remark');

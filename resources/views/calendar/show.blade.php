@@ -35,7 +35,7 @@
                     <div class="mb-3">
  
 
-                        @foreach($pendencies as $pendency)
+                        @foreach($class->listPendencies as $pendency)
                         <div class="alert list-group-item-{{ $pendency['status'] }} mb-1 p-2">
                             <strong>
                                 <i class="fa fa-info-circle" aria-hidden="true"></i>
@@ -213,7 +213,7 @@
                             <i class="fas fa-calendar-times    "></i> Marcar Falta
                         </a>
     
-                        <a class="btn btn-success in-modal" href="{{ route('calendar.edit',  [$class, 'action=presence']) }}">
+                        <a class="btn bg-olive in-modal" href="{{ route('calendar.edit',  [$class, 'action=presence']) }}">
                             <i class="fas fa-calendar-check"></i> Marcar Presença
                         </a>
                     @endif

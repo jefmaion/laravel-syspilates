@@ -11,4 +11,8 @@ class Modality extends Model
     use HasTenant, AuthUser;
 
     protected $guarded = ['id'];
+
+    public function getNameWithNickAttribute() {
+        return $this->name . ' ('.$this->nick.')';
+    }
 }

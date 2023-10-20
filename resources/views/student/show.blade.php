@@ -200,7 +200,7 @@
                                     <td>{{ $installment->date->format('d/m/Y') }}</td>
                                     <td>{{ $installment->description }}</td>
                                     <td>{{ currency($installment->value) }}</td>
-                                    <td>{{ $installment->category->name }}</td>
+                                    <td>{{ $installment->category->name ?? '' }}</td>
                                     <td>{{ $installment->method->name }}</td>
                                     <td>
                                         <x-transaction-status status="{{ $installment->statusCode }}">{{

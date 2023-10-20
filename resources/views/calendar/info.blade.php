@@ -44,13 +44,6 @@
 
             <span class="mx-2">|</span>
 
-            {{-- <span class="text-muted mt-1">
-                <i class="fa fa-calendar" aria-hidden="true"></i>
-                {{ $class->date->format('d/m/Y') }} 
-            </span>
-    
-            <span class="mx-2">|</span> --}}
-
             <span class="text-muted mt-1">
                 <i class="far fa-clock"></i>
                 {{ $class->time }}
@@ -64,10 +57,7 @@
             </span>
         </div>
 
-        <div class="text-muted">
-            
-        </div>
-
+ 
         <h6 class="mt-2">
 
             <span class="badge badge-pill badge-light border">{{ $class->typeDescription }}</span>
@@ -76,33 +66,22 @@
                 {{ $class->statusDescription }}
             </x-class-status>
 
-        @if(!$class->isExperimental)    
-            @if($class->parent)
-            <span class="badge badge-pill badge-secondary">
-                Reposição do dia {{ $class->parent->date->format('d/m/Y') }}
-            </span>
-            @endif
+            @if(!$class->isExperimental)    
+                @if($class->parent)
+                <span class="badge badge-pill badge-secondary">
+                    Reposição do dia {{ $class->parent->date->format('d/m/Y') }}
+                </span>
+                @endif
 
-            @if($class->lastReposition)
-            <span class="badge badge-pill badge-secondary">
-                Reposição em {{ $class->lastReposition->date->format('d/m/Y') }}
-            </span>
+                @if($class->lastReposition)
+                <span class="badge badge-pill badge-secondary">
+                    Reposição em {{ $class->lastReposition->date->format('d/m/Y') }}
+                </span>
+                @endif
             @endif
-        @endif
         </h6>
 
-      
-      
-
-        
-
-
     </div>
-
-    
-
-
-
 
 
 </div>
