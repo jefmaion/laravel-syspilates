@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateStudentRequest extends UpdateUserRequest
+class StoreFileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,15 +23,8 @@ class UpdateStudentRequest extends UpdateUserRequest
      */
     public function rules()
     {
-        return array_merge(parent::rules(), [
-            // 'student.occupation' => 'required'
-        ]);
-    }
-
-    public function attributes()
-    {
-        return array_merge(parent::attributes(),[
-            'student.occupation' => 'Profissão'
-        ]);
+        return [
+            'file' => 'required|file|mimes:jpg,jpeg,bmp,png,doc,docx,csv,rtf,xlsx,xls,txt,pdf,zip'
+        ];
     }
 }

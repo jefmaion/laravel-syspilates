@@ -26,8 +26,7 @@
 
 <div class="row">
     <div class="col-md-3">
-
-        {{-- <div class="card card-{{ theme() }} card-outline">
+        <div class="card card-{{ theme() }} card-outline">
             <div class="card-body box-profile">
                 <div class="text-center">
                     <x-avatar class="img-bordered-sm" :user="$instructor->user" size="64px"></x-avatar>
@@ -36,12 +35,24 @@
                 <p class="text-muted text-center">{{ $instructor->occupation }}</p>
 
                 <ul class="list-group list-group-unbordered mb-3">
+                    <li class="list-group-item">
+                        <b>Status</b> <a class="float-right"><span class="badge badge-pill badge-success">Ativo</span></a>
+                    </li>
+
+                    <li class="list-group-item">
+                        <b>Cadastrado em:</b> <span class="float-right">{{ $instructor->created_at->format('d/m/Y H:i:s') }}</span>
+                    </li>
+              
+                </ul>
+
+
+                {{-- <ul class="list-group list-group-unbordered mb-3">
                     @foreach($instructor->modalities as $modality)
                     <li class="list-group-item">
                         <b>{{ $modality->name }}</b> <a class="float-right"> {{ $modality->pivot->percentual }}</a>
                     </li>
                     @endforeach
-                </ul>
+                </ul> --}}
             </div>
             <div class="card-footer">
                 <a name="" id="" class="btn btn-outline-secondary" href="{{ route('instructor.index') }}" role="button">
@@ -69,113 +80,37 @@
 
             </div>
 
-        </div> --}}
-
-        <div class="card card-widget widget-user">
-
-            <div class="widget-user-header bg-{{ theme() }}">
-                <h3 class="widget-user-username">{{ $instructor->user->shortName }}</h3>
-                <h5 class="widget-user-desc">{{ $instructor->occupation }}</h5>
-            </div>
-            <div class="widget-user-image">
-                <x-avatar class="img-bordered-sm" :user="$instructor->user" size="64px"></x-avatar>
-            </div>
-            <div class="card-footer">
-                <div class="row">
-                    @foreach($instructor->modalities as $modality)
-                    <div class="col border-right">
-                        <div class="description-block">
-                            <span class="description-text">{{ $modality->name }}</span>
-                        </div>
-        
-                    </div>
-                    @endforeach
-                    
-        
-                </div>
-
-
-                <a name="" id="" class="btn btn-outline-secondary" href="{{ route('instructor.index') }}" role="button">
-                    <x-icon icon="back">Voltar</x-icon>
-                </a>
-
-                {{-- <a name="" id="" class="btn btn-outline-warning" href="{{ route('instructor.edit', $instructor) }}"
-                    role="button">
-                    <x-icon icon="edit">Editar</x-icon>
-                </a>
-
-                <a name="" id="" class="btn btn-outline-info"
-                    href="{{ route('instructor.modality.index', $instructor) }}" role="button">
-                    <x-icon icon="edit">Modalidades</x-icon>
-                </a> --}}
-
-
-
-
-                <button class="btn bg-{{ theme() }} dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    <x-icon icon="config"></x-icon>
-                    Ações
-                </button>
-                <div class="dropdown-menu" aria-labelledby="triggerId">
-                    <a class="dropdown-item" href="{{ route('instructor.edit', $instructor) }}">
-                        <x-icon icon="edit"></x-icon> Editar Professor
-                    </a>
-                    <a class="dropdown-item" href="{{ route('instructor.modality.index', $instructor) }}">
-                        <x-icon icon="edit">Modalidades</x-icon>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <x-modal-delete class="dropdown-item" id="{{ $instructor->id }}"
-                        route="{{ route('instructor.destroy', $instructor) }}">
-                        <x-icon icon="delete">Excluir</x-icon>
-                    </x-modal-delete>
-                </div>
-        
-            </div>
         </div>
-
-
-        <div class="card card-{{ theme() }}">
-            <div class="card-header">
-                <h3 class="card-title">Informações Adicionais</h3>
-            </div>
-
-            <div class="card-body">
-
-                <strong><i class="fas fa-book mr-1"></i> Contatos</strong>
-                <address class="text-muted">
-                    Phone: {{ $instructor->user->phone_wpp }} | {{ $instructor->user->phone2 }}<br>
-                    Email: {{ $instructor->user->email }}
-                </address>
-                <hr>
-                <strong><i class="fas fa-book mr-1"></i> Endereço</strong>
-                <address class="text-muted">
-                    {{ $instructor->user->address }} {{ $instructor->user->number }} {{ $instructor->user->complement
-                    }}<br>
-                    {{ $instructor->user->district }}, {{ $instructor->user->city }} {{ $instructor->user->zipcode
-                    }}<br>
-                </address>
-                <hr>
-                {{-- <strong><i class="fas fa-book mr-1"></i> Medicamentos</strong>
-                <p class="text-muted">
-                    {{ $instructor->medicines }}
-                </p> --}}
-
-            </div>
-
-        </div>
-
     </div>
 
     <div class="col-md-9">
-        <div class="card card-{{ theme() }} card-outline">
+        <div class="card">
             <div class="card-header p-2">
                 <ul class="nav nav-pills">
-                    <li class="nav-item"><a class="nav-link active" href="#modality" data-toggle="tab">Histórico de
-                            Aulas</a>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#modality" data-toggle="tab">
+                            <i class="fas fa-calendar-alt    "></i>
+                            Histórico de Aulas
+                        </a>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Financeiro</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Agenda de Aulas</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#modalities" data-toggle="tab">
+                            <i class="fa fa-list" aria-hidden="true"></i>
+                            Modalidades
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#timeline" data-toggle="tab">
+                            <i class="fas fa-dollar-sign    "></i>
+                            Financeiro
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#settings" data-toggle="tab">
+                            <i class="fas fa-user-edit    "></i>
+                            Dados Cadastrais
+                        </a>
+                    </li>
                 </ul>
             </div>
             <div class="card-body">
@@ -217,6 +152,68 @@
                             </tbody>
                         </table>
 
+                    </div>
+
+                    <div class="tab-pane" id="modalities">
+
+                        <table class="table table-striped datatable w-100">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Modalidade</th>
+                                    <th>Percentual</th>
+                                    <th>Calcula na Falta</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($instructor->modalities as $modality)
+                                    <tr>
+                                        <td><strong>{{ $modality->name }}</strong></td>
+                                        <td>{{ $modality->pivot->percentual }}</td>
+                                        <td>{{ $modality->pivot->absense }}</td>
+                                        <td>
+                                            <x-modal-delete class="btn-sm text-muted" id="{{ $instructor->id }}" route="{{ route('instructor.modality.destroy', [$instructor, $modality->id]) }}">
+                                                <x-icon icon="delete"></x-icon>
+                                            </x-modal-delete>
+                                    </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+
+
+                        <form action="{{ route('instructor.modality.store', $instructor) }}" method="post">
+                            @csrf
+                            <div class="row">
+        
+                                <div class="col-4  form-group">
+                                    <label>Modalidade</label>
+                                    <x-form.select name="modality_id" class="select2 w-100" value="" :options="$modalities" />
+                                </div>
+        
+                                <div class="col  form-group">
+                                    <label>Percentual</label>
+                                    <x-form.input type="text" name="percentual" value="" />
+                                </div>
+        
+                                <div class="col  form-group">
+                                    <label>Calcular na Falta?</label>
+                                    <x-form.select name="calc_on_absense" class="select2 w-100"  :options="[1 => 'Sim', 0 => 'Não']" />
+                                </div>
+        
+                                <div class="col d-flex align-items-center">
+                                   
+                                    {{--  --}}
+                                    <button type="submit" class="btn bg-{{ theme() }} btn-block">
+                                    <i class="fas fa-check-double    "></i> Atribuir Modalidade</button> 
+                                </div>
+            
+                                
+                            </div>
+                        </form>
+
+               
+                        
                     </div>
 
                     <div class="tab-pane" id="timeline">
@@ -461,5 +458,16 @@
 </script> --}}
 <script>
     dataTable('.datatable')
+</script>
+<script>
+   var url = document.location.toString();
+if (url.match('#')) {
+    $('.nav-tabs a[href=#'+url.split('#')[1]+']').tab('show') ;
+}
+$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    window.location.hash = e.target.hash;
+});
+
+    
 </script>
 @endsection

@@ -4,7 +4,7 @@
 @section('pageheader')
 <div class="container-fluid">
     <div class="row">
-        <div class="col-12 col-xl-6">
+        <div class="col-12 col-xl-12">
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1>
@@ -31,14 +31,23 @@
 
 <div class="row">
 
-    <div class="col-6">
+    <div class="col-md-3">
+        @include('student.info')
+
+    </div>
+
+    <div class="col">
         <form action="{{ route('student.registration.store', $student) }}" method="post">
             <div class="card card-outline card-{{ theme() }}">
+                <div class="card-header">
+                    <div><strong>Nova Modalidade</strong></div>
+                </div>
                 <div class="card-body">
+                    
                     @csrf
                     @include('student.registration.form')
                 </div>
-                <div class="card-footer text-right">
+                <div class="card-footer">
                     <a name="" id="" class="mr-3 text-muted" href="{{ route('student.show', $student) }}"
                         role="button">
                         <x-icon icon="back">Voltar</x-icon>

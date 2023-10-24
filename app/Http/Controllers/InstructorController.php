@@ -69,8 +69,8 @@ class InstructorController extends Controller
     {
 
         $instructor = $this->instructorService->findInstructor($id);
-
-        return view('instructor.show', compact('instructor'));
+        $modalities = Modality::whereNotIn('id', $instructor->modalities->pluck('id'))->get()->keyBy('id')->pluck('name', 'id');
+        return view('instructor.show', compact('instructor', 'modalities'));
     }
 
     /**

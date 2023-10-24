@@ -54,6 +54,15 @@ class User extends Authenticatable
         return $this->belongsTo(Instructor::class, 'id', 'user_id');
     }
 
+    public function getAgeAttribute() {
+        return Carbon::parse($this->birth_date)->age;
+    }
+
+    public function getGenderDescriptionAttribute() {
+        $genders = ['M' => 'Masculino', 'F' => 'Feminino'];
+        return $genders[$this->gender];
+    }
+
     public function getIsBirthdayAttribute() {
 
         if(!$this->birth_date) {
@@ -70,5 +79,19 @@ class User extends Authenticatable
     public function getShortNameAttribute() {
         $names = explode(" ", $this->name);
         return trim(array_shift($names).' '.end($names));
+    }
+
+    public function getFullAddressAttribute() {
+        return  ($this->address.', ' ?? '') . 
+                ($this->number.' ' ?? '').
+                ($this->complement. ' - ' ?? '').
+                ($this->district . ' - ' ?? '').
+                ($this->city . '/' ?? ''). 
+                ($this->state .' - ' ?? '').
+                ($this->zipcode ?? '');
+    }
+
+    public function countStudents() {
+        return Student::count();
     }
 }

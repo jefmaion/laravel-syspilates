@@ -85,8 +85,10 @@ class StudentController extends Controller
     {
 
         $student = $this->studentService->find($id);
+        
+        $resume = $this->studentService->listCountStatusClasses($student);
 
-        return view('student.show', compact('student'));
+        return view('student.show', compact('student', 'resume'));
     }
 
     /**

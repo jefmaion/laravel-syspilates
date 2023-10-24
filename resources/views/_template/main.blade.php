@@ -10,7 +10,7 @@
 
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed text-sm">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed texst-sm">
     <!-- Site wrapper -->
     <div class="wrapper">
         <!-- Navbar -->

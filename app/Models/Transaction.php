@@ -18,7 +18,6 @@ class Transaction extends Model
 
     protected static function booted()
     {
-
         // you can do the same thing using anonymous function
         // let's add another scope using anonymous function
         static::creating(function($model) {
@@ -32,6 +31,10 @@ class Transaction extends Model
 
     public function method() {
         return $this->belongsTo(PaymentMethod::class,   'payment_method_id', 'id');
+    }
+
+    public function registration() {
+        return $this->belongsTo(Registration::class);
     }
 
     public function getFeesValueAttribute() {

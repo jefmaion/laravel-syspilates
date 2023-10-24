@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Classes;
 use App\Models\Student;
 use App\Models\User;
 use App\View\Components\Avatar as ComponentsAvatar;
@@ -79,6 +80,18 @@ class StudentService {
 
         Session::flash('success', 'Registro excluído com sucesso!!');
         return true;
+    }
+
+    public function listCountStatusClasses(Student $student) {
+
+        return Classes::
+                selectRaw("COUNT(*) as total")
+                ->selectRaw("SUM(CASE WHEN status = 1 AND situation = 'PP' THEN 1 ELSE 0 END) as presences")
+                ->selectRaw("SUM(CASE WHEN status = 1 AND situation IN ('FF', 'FJ') THEN 1 ELSE 0 END) as absenses")
+                ->selectRaw("SUM(CASE WHEN type = 'RP' THEN 1 ELSE 0 END) as repositions")
+                ->where('student_id',$student->id)
+                ->first();
+
     }
 
     public function listToSelectBox() {

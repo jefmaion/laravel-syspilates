@@ -27,28 +27,21 @@
 
 
 <div class="row">
-    {{--
-    <div class="col-12">
-        <x-user-info :student="$student">
+    
+    <div class="col-md-3">
+        @include('student.info')
+    </div>
 
 
 
-            <x-slot name="footer">
-                <a name="" id="" class="btn btn-outline-secondary" href="{{ route('student.show', $student) }}"
-                    role="button">
-                    <x-icon icon="back">Voltar</x-icon>
-                </a>
-            </x-slot>
-        </x-user-info>
-    </div> --}}
-
-
-
-    <div class="col-md-12">
+    <div class="col-9 d-flex">
 
         <div class="row">
             <div class="col-12 d-flex">
                 <div class="card flex-fill card-outline card-{{ theme() }}">
+                    <div class="card-header">
+                        <strong>{{ $registration->modality->name }} - Detalhes da matrícula</strong>
+                    </div>
                     <div class="card-body">
 
                     
@@ -132,10 +125,59 @@
                         </div>
 
 
+                        <div>
 
+                            {{-- <a name="" id="" class="btn btn-outline-secondary mr-2"
+                                href="{{ route('student.show', $student) }}" role="button">
+                                <x-icon icon="back">Voltar</x-icon>
+                            </a> --}}
 
+                        
+                            <button class="btn bg-{{ theme() }} dropdown-toggle " type="button" id="triggerId"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <x-icon icon="config"></x-icon>
+                                Ações
+                            </button>
 
-                        <br>
+                            <div class="dropdown-menu" aria-labelledby="triggerId">
+
+                                <a class="dropdown-item"
+                                    href="{{ route('student.registration.class.create', [$student, $registration]) }}">
+                                    <x-icon icon="new"></x-icon> Adicionar Aula
+                                </a>
+
+                                <a class="dropdown-item"
+                                    href="{{ route('student.registration.edit', [$student, $registration]) }}">
+                                    <x-icon icon="edit"></x-icon> Editar Modalidade
+                                </a>
+
+                                
+
+                                <a class="dropdown-item"
+                                    href="{{ route('student.registration.renew', [$student, $registration]) }}">
+                                    <i class="fas fa-sync fas-sm    "></i> Renovar Modalidade
+                                </a>
+
+                                <a class="dropdown-item"
+                                        href="#" data-toggle="modal"
+                                        data-target="#model-cancel-{{ $registration->id }}">
+                                    <i class="fas fa-times-circle    "></i> Cancelar Modalidade
+                                </a>
+
+                                <div class="dropdown-divider"></div>
+
+                                <x-modal-delete class="dropdown-item" id="{{ $student->id }}"
+                                    route="{{ route('student.registration.destroy', [$student, $registration]) }}">
+                                    <x-icon icon="delete">Excluir Modalidade</x-icon>
+                                </x-modal-delete>
+                            </div>
+                        
+
+                            @include('student.registration.cancel')
+
+                        </div>
+
+                        <br><br>
 
                         <h5 class="border-bottom mb-3"><strong>Aulas</strong></h5>
 
@@ -203,53 +245,7 @@
 
                     <div class="card-footer d-flex">
 
-                        <a name="" id="" class="btn btn-outline-secondary mr-2"
-                            href="{{ route('student.show', $student) }}" role="button">
-                            <x-icon icon="back">Voltar</x-icon>
-                        </a>
-
-                        <div class="dropup">
-                            <button class="btn bg-{{ theme() }} dropdown-toggle " type="button" id="triggerId"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <x-icon icon="config"></x-icon>
-                                Ações
-                            </button>
-
-                            <div class="dropdown-menu" aria-labelledby="triggerId">
-
-                                <a class="dropdown-item"
-                                    href="{{ route('student.registration.class.create', [$student, $registration]) }}">
-                                    <x-icon icon="new"></x-icon> Adicionar Aula
-                                </a>
-
-                                <a class="dropdown-item"
-                                    href="{{ route('student.registration.edit', [$student, $registration]) }}">
-                                    <x-icon icon="edit"></x-icon> Editar Modalidade
-                                </a>
-
-                                
-
-                                <a class="dropdown-item"
-                                    href="{{ route('student.registration.renew', [$student, $registration]) }}">
-                                    <i class="fas fa-sync fas-sm    "></i> Renovar Modalidade
-                                </a>
-
-                                <a class="dropdown-item"
-                                        href="#" data-toggle="modal"
-                                        data-target="#model-cancel-{{ $registration->id }}">
-                                    <i class="fas fa-times-circle    "></i> Cancelar Modalidade
-                                </a>
-
-                                <div class="dropdown-divider"></div>
-
-                                <x-modal-delete class="dropdown-item" id="{{ $student->id }}"
-                                    route="{{ route('student.registration.destroy', [$student, $registration]) }}">
-                                    <x-icon icon="delete">Excluir Modalidade</x-icon>
-                                </x-modal-delete>
-                            </div>
-                        </div>
-
-                        @include('student.registration.cancel')
+                       
                                                     
                         {{--
 

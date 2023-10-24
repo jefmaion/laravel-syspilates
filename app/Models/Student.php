@@ -40,7 +40,20 @@ class Student extends Model
      * @return void
      */
     public function classes() {
-        return $this->hasMany(Classes::class);
+        return $this->hasMany(Classes::class)->orderBy('date', 'desc');
+    }
+
+    public function classesResume() {
+        return $this->classes()->selectRaw("COUNT(*) as total")
+        ->selectRaw("SUM(CASE WHEN status = 1 AND situation = 'PP' THEN 1 ELSE 0 END) as presences")
+        ->selectRaw("SUM(CASE WHEN status = 1 AND situation IN ('FF', 'FJ') THEN 1 ELSE 0 END) as absenses")
+        ->selectRaw("SUM(CASE WHEN type = 'RP' THEN 1 ELSE 0 END) as repositions");
+    }
+
+
+
+    public function files() {
+        return $this->hasMany(Files::class);
     }
 
     public function installments() {

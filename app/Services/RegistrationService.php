@@ -3,10 +3,13 @@
 namespace App\Services;
 
 use App\Models\Classes;
+use App\Models\Modality;
 use App\Models\Registration;
 use App\Models\Student;
+use App\View\Components\Avatar as ComponentsAvatar;
 use App\Models\Transaction;
 use Exception;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Session;
 
 class RegistrationService {
@@ -36,16 +39,34 @@ class RegistrationService {
 
         $this->generateClasses($registration, $data['class']);
 
+        $status = 0;
+        $payDate = null;
+
         if($data['duration'] > 0) {
             $date = $data['pay_date'];
             for($i = 1; $i <= $data['duration']; $i++) {
+
+                $status = 0;
+                $payDate = null;
+
+                if($i == 1 && (isset($data['pay']) && $data['pay'] == 1)) {
+                    $status = 1;
+                    $payDate = now();
+                }
+
+             
+
+
                 Transaction::create([
                     'value' => $data['value'],
                     'student_id' => $registration->student_id,
+                    'registration_id' => $registration->id,
                     'payment_method_id' => $data['first_payment_method_id'],
                     'type' => 'R',
                     'category_id' => 6,
                     'date' => $date,
+                    'status' => $status,
+                    'pay_date' => $payDate,
                     'description' => $registration->student->user->shortName . ' ('. $registration->modality->nick. ' ' .($i).' de '.$data['duration'].')'
                 ]);  
     
@@ -53,13 +74,25 @@ class RegistrationService {
             }
         } else {
             foreach($registration->classes as $i => $class) {
+
+                $status = 0;
+                $payDate = null;
+
+                if($i == 0 && (isset($data['pay']) && $data['pay'] == 1)) {
+                    $status = 1;
+                    $payDate = now();
+                }
+
                 Transaction::create([
                     'value' => $data['value'],
                     'student_id' => $registration->student_id,
+                    'registration_id' => $registration->id,
                     'payment_method_id' => $data['first_payment_method_id'],
                     'type' => 'R',
                     'category_id' => 6,
                     'date' => $class->date,
+                    'status' => $status,
+                    'pay_date' => $payDate,
                     'description' => $registration->student->user->shortName  . ' ('. $registration->modality->nick. ' ' . ($i+1).' de '.$data['num_classes'].')'
                 ]); 
             }
@@ -107,6 +140,8 @@ class RegistrationService {
             ->where('status', 0)->delete();
 
 
+            // Validar
+        // $registration->transactions()->whereNull('pay_date')->delete();
         $registration->update(['is_active' => 0]);
 
         if($registration->classes()->count() == 0) {
@@ -143,6 +178,36 @@ class RegistrationService {
 
         return $grade;
 
+    }
+
+    public function listToDataTable() {
+        $registrations = Registration::
+                            with('student.user')
+                            ->with('modality')
+                            ->where('is_active', 1)
+                            ->get();
+
+        $response = [];
+
+        foreach($registrations as $registration) {
+
+            $avatar = Blade::renderComponent(new ComponentsAvatar($registration->student->user, '25px'));
+
+            $response[] = [
+                'name' => $avatar . '<a href="'.route('student.show', $registration->student).'">'.$registration->student->user->name.'</a>' ,
+                'modality' => $registration->modality->name,
+                'status' => '<span class="badge badge-pill bg-' . (($registration->daysToRenew <= 3) ? 'warning' : 'success') . '">
+                                '.$registration->position.'
+                            </span>',
+                'plan' => $registration->planDescription,
+                'start' => $registration->start->format('d/m/Y'),
+                'end' => $registration->end->format('d/m/Y'),
+                'value' => currency($registration->value),
+                'created_at' => $registration->created_at->format('d/m/Y H:i:s')
+            ];
+        }
+
+        return ['data' => $response];
     }
 
     private function generateClasses(Registration $registration, $classes) {

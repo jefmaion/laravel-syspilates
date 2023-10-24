@@ -3,20 +3,20 @@
         <h6 class="border-bottom mb-3"><strong>1. Informações da Matrícula</strong></h6>
         <div class="row">
 
-            <div class="col-6 form-group">
+            <div class="col-3 form-group">
                 <label>Modalidade</label>
-                <x-form.select name="modality_id" :options="$modalities"
+                <x-form.select name="modality_id" :options="$modalities" :disabled="!empty($registration->id)"
                     value="{{ old('modality_id', $registration->modality_id ?? '') }}"  />
             </div>
 
-            <div class="col-3 form-group">
+            <div class="col-2 form-group">
                 <label>Data 1ª Aula</label>
-                <x-form.input type="date" name="start"
+                <x-form.input type="date" name="start" :disabled="!empty($registration->id)"
                     value="{{ old('start',  (($registration->start) ? $registration->start->format('Y-m-d') : date('Y-m-d') )) }}" />
             </div>
         
             
-            <div class="col-3 form-group">
+            <div class="col-2 form-group">
                 <label>Aula p/semana</label>
                 <x-form.select name="class_per_week"
                     :options="[1 => '1 Aula', 2 => '2 Aulas', 3 => '3 Aulas', 4 => '4 Aulas', 5 => '5 Aulas', 6 => '6 Aulas']"
@@ -24,41 +24,42 @@
                     :disabled="!empty($registration->id)" />
             </div>
         
-        </div>
-        
-        
-        <div class="row">
-        
-            <div class="col-4 form-group">
+            <div class="col-2 form-group">
                 <label>Plano</label>
                 <x-form.select name="duration" :options="[1 => 'Mensal', 3 => 'Trimestral', 0 => 'Aula Avulsa']"
                     value="{{ old('duration', $registration->duration ?? '') }}" :disabled="!empty($registration->id)" />
             </div>
         
-            <div class="col form-group commom-class">
-                <label>Valor do Plano</label>
+            <div class="col-2 form-group commom-class">
+                <label>Valor Plano</label>
                 <x-form.input name="value" class="money" value="{{ old('value', $registration->value ?? '') }}"
                     :disabled="!empty($registration->id)" />
             </div>
         
         
-            <div class="col-2 form-group commom-class">
-                <label>Dia Vencimento</label>
+            <div class="col form-group commom-class">
+                <label>Dia Vencto</label>
                 <x-form.input name="due_day" value="{{ old('due_day', $registration->due_day ?? '') }}"
                     :disabled="!empty($registration->id)" />
             </div>
 
-            <div class="col form-group package-class">
-                <label>Valor da Aula</label>
+            <div class="col-2 form-group package-class">
+                <label>Valor Aula</label>
                 <x-form.input name="value" class="money" value="{{ old('value', $registration->value ?? '') }}"
                     :disabled="!empty($registration->id)" />
             </div>
 
-            <div class="col-2 form-group num-class package-class">
+            <div class="col form-group num-class package-class">
                 <label>Qtd Aulas</label>
                 <x-form.input name="num_classes" type="number"
                     value="{{ old('num_classes', $registration->num_classes ?? '') }}" :disabled="!empty($registration->id)" />
             </div>
+        </div>
+        
+        
+        <div class="row">
+        
+            
         
         
             
@@ -69,25 +70,33 @@
         <h6 class="border-bottom mb-3"><strong>2. Pagamento</strong></h6>
         <div class="row">
         
-            <div class="col-4 form-group">
+            <div class="col-3 form-group">
                 <label>Data 1º Pagamento</label>
                 <x-form.input type="date" name="pay_date"
                     value="{{ old('pay_date',  (($registration->pay_date) ? $registration->pay_date->format('Y-m-d') : date('Y-m-d') )) }}"
                     :disabled="!empty($registration->id)" />
             </div>
         
-            <div class="col form-group">
+            <div class="col-3 form-group">
                 <label>Forma do 1º Pagamento</label>
                 <x-form.select name="first_payment_method_id" :options="$payments"
                     value="{{ old('first_payment_method_id', $registration->first_payment_method_id ?? '') }}"
                     :disabled="!empty($registration->id)" />
             </div>
         
-            <div class="col form-group" id="other-payments">
+            <div class="col-3 form-group" id="other-payments">
                 <label>Demais Pagtos.</label>
                 <x-form.select name="other_payment_method_id" :options="$payments"
                     value="{{ old('other_payment_method_id', $registration->other_payment_method_id ?? '') }}"
                     :disabled="!empty($registration->id)" />
+            </div>
+
+            <div class="col-3 form-group d-flex align-items-center">
+                
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="customSwitch1" name="pay" value="1">
+                    <label class="custom-control-label" for="customSwitch1">Marcar 1º pagamento como Pago</label>
+                    </div>
             </div>
         
         

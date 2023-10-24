@@ -17,13 +17,18 @@
                         <x-form.input type="text" name="student[occupation]" value="{{ old('user.occupation', $student->occupation ?? '') }}" />
                     </div>
 
+                    <div class="col-12  form-group">
+                        <label>Objetivo</label>
+                        <x-form.input type="text" name="student[objective]" value="{{ old('user.occupation', $student->objective ?? '') }}" />
+                    </div>
                    
                     <div class="col-12 form-group">
                         <label>Observações</label>
-                        <textarea class="form-control" name="student[comments]" id="" cols="30"
-                            rows="2">{{ old('user.comments', $student->comments ?? '') }}</textarea>
+                        <textarea class="form-control" name="student[comments]" id="" cols="30" rows="2">{{ old('user.comments', $student->comments ?? '') }}</textarea>
                     </div>
                 </div>
+
+               
 
 
             </div>

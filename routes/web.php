@@ -6,10 +6,12 @@ use App\Http\Controllers\ClassesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExerciceController;
 use App\Http\Controllers\ExperimentalClassController;
+use App\Http\Controllers\FilesController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\InstructorModalityController;
 use App\Http\Controllers\ModalityController;
 use App\Http\Controllers\ReceiveController;
+use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\StudentClassController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentRegistrationController;
@@ -80,6 +82,13 @@ Route::middleware(['auth', 'tenant'])->group(function() {
 
     // Route::resource('class/experimental', ExperimentalClassController::class);
 
+    
+    Route::get('/files', [FilesController::class, 'index'])->name('files.index');
+    Route::get('/files/add', [FilesController::class, 'create'])->name('files.create');
+    Route::post('/files/add', [FilesController::class, 'store'])->name('files.store');
+    Route::delete('/files/{id}', [FilesController::class, 'destroy'])->name('files.delete');
+
+    Route::resource('/registration', RegistrationController::class);
 });
 
 require __DIR__.'/auth.php';

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateStudentRequest extends UpdateUserRequest
+class StoreInstructorModalityRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,15 +23,10 @@ class UpdateStudentRequest extends UpdateUserRequest
      */
     public function rules()
     {
-        return array_merge(parent::rules(), [
-            // 'student.occupation' => 'required'
-        ]);
-    }
-
-    public function attributes()
-    {
-        return array_merge(parent::attributes(),[
-            'student.occupation' => 'Profissão'
-        ]);
+        return [
+            'modality_id' => 'required',
+            'percentual' => 'required',
+            'calc_on_absense' => 'required'
+        ];
     }
 }

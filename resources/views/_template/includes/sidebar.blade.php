@@ -59,11 +59,23 @@
                 <li class="nav-header">CADASTROS</li>
 
                 <li class="nav-item">
+                    <a href="{{ route('registration.index') }}" class="nav-link {{ (\Request::is('registration*')) ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-users"></i>
+                        <p>
+                            Matrículas
+                            
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ route('student.index') }}" class="nav-link {{ (\Request::is('student*')) ? 'active' : '' }}">
                         <i class="nav-icon fa fa-users"></i>
                         <p>
                             Alunos
+                            
                         </p>
+                        <span class="badge badge-primary right">{{ auth()->user()->countStudents() }}</span>
                     </a>
                 </li>
 

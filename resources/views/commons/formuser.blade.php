@@ -65,7 +65,7 @@
 
     <div class="col-12 col-sm-2 col-md-2 col-lg-2 form-group">
         <label>Nº</label>
-        <x-form.input type="text" name="user[number]" value="" />
+        <x-form.input type="text" name="user[number]" value="{{ old('user.number', $user->number ?? '') }}" />
     </div>
 
     <div class="col-12 col-sm-10 col-md-10 col-lg-3 form-group">

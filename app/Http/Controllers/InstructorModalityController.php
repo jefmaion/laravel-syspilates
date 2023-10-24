@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreInstructorModalityRequest;
 use App\Models\Instructor;
 use App\Models\Modality;
 use App\Services\InstructorService;
@@ -24,7 +25,7 @@ class InstructorModalityController extends Controller
         return view('instructor.modality.index', compact('instructor', 'modalities'));
     }
 
-    public function store(Instructor $instructor, Request $request) {
+    public function store(Instructor $instructor, StoreInstructorModalityRequest $request) {
         $data = $request->except(['_token']);
         $this->instructorService->attachModality($instructor, $data);
 

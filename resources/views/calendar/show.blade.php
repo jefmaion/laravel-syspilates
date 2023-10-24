@@ -4,8 +4,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 
         <div class="modal-content p-2">
-
-
+         
             <div class="modal-header bg-lights border-0">
                 {{-- <h6 class="modal-title text-muted">
                     <i class="fas fa-calendar-alt    "></i>

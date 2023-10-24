@@ -25,6 +25,10 @@ class Registration extends Model
         return $this->hasMany(Classes::class);
     }
 
+    public function transactions() {
+        return $this->hasMany(Transaction::class);
+    }
+
     public function weekdays() {
         return $this->hasMany(RegistrationClass::class);
     }
