@@ -18,6 +18,7 @@ use App\Http\Controllers\StudentRegistrationController;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\TestController;
 use App\Http\Middleware\CheckTenant;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +31,35 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+//Clear config cache
+Route::get('/config-cache', function() {
+    Artisan::call('config:cache');
+    return redirect()->back();
+}); 
+
+// Clear application cache
+Route::get('/clear-cache', function() {
+    Artisan::call('cache:clear');
+    return 'Application cache cleared';
+});
+
+// Clear view cache
+Route::get('/view-clear', function() {
+    Artisan::call('view:clear');
+    return 'View cache cleared';
+});
+
+// Clear cache using reoptimized class
+Route::get('/optimize-clear', function() {
+    Artisan::call('optimize:clear');
+    return 'View cache cleared';
+});
+
+Route::get('/optimize', function() {
+    Artisan::call('optimize');
+    return 'Config cache cleared';
+});
 
 Route::get('/', function () {
     return redirect(route('login'));
@@ -89,6 +119,11 @@ Route::middleware(['auth', 'tenant'])->group(function() {
     Route::delete('/files/{id}', [FilesController::class, 'destroy'])->name('files.delete');
 
     Route::resource('/registration', RegistrationController::class);
+
+
+
+
+    
 });
 
 require __DIR__.'/auth.php';
