@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             ExerciceSeeder::class,
             CategorySeeder::class,
 
-            // UserSeeder::class,
+            UserSeeder::class,
             // StudentSeeder::class,
             // PaymentMethodSeeder::class
         ]);

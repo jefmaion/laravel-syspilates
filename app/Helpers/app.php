@@ -25,8 +25,9 @@ if (!function_exists('classTime')) {
 }
 
 if (!function_exists('classWeek')) {
-    function classWeek($id=null) {
+    function classWeek($id="") {
         $data =  [
+            0 => 'Domingo',
             1 => 'Segunda-Feira',
             2 => 'Terça-Feira',
             3 => 'Quarta-Feira',
@@ -35,7 +36,11 @@ if (!function_exists('classWeek')) {
             6 => 'Sábado'
         ] ;
 
-        return (empty($id)) ? $data : $data[$id];
+        if(!isset($data[$id])) {
+            return $data;
+        }
+
+        return $data[$id];
     }
 }
 
@@ -66,7 +71,9 @@ if(!function_exists('theme')) {
 }
 
 if(!function_exists('dateExt')) {
+    
     function dateExt($date) {
+
         $date = Carbon::parse($date)->locale('pt-BR');
         $w = date('w', strtotime($date));
         $weekdayName = classWeek($w);
