@@ -57,6 +57,7 @@
                             Evoluções
                         </a>
                     </li>
+                    @if(user_can())
                     <li class="nav-item">
                         <a class="nav-link" id="installments-tab" data-toggle="pill" href="#installments" role="tab"
                             aria-controls="installments" aria-selected="false">
@@ -64,6 +65,7 @@
                             Financeiro
                         </a>
                     </li>
+                    @endif
                     <li class="nav-item">
                         <a class="nav-link" id="custom-tabs-five-settings-tab" data-toggle="pill"
                             href="#custom-tabs-five-settings" role="tab" aria-controls="custom-tabs-five-settings"

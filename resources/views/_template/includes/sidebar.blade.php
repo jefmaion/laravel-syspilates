@@ -117,7 +117,7 @@
                 </li>
 
                 
-                
+               @if(user_can())
 
                 <li class="nav-header">FINANCEIRO</li>
 
@@ -169,6 +169,7 @@
                 
 
                  --}}
+                  @endif
 
                 {{-- <li class="nav-item">
                     <a href="#" class="nav-link">

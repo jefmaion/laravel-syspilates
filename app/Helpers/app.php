@@ -80,3 +80,12 @@ if(!function_exists('dateExt')) {
         return $weekdayName.', ' . $date->translatedFormat('d \d\e F \d\e Y');
     }
 }
+
+if(!function_exists('user_can')) {
+    function user_can() {
+        $users = ['jefmaion@hotmail.com', 'gleicelilica@hotmail.com'];
+
+        return in_array(auth()->user()->email, $users);
+    }
+
+}

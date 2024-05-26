@@ -109,6 +109,8 @@ class RegistrationService {
         $data['duration'] = $registration->duration;
         $data['num_classes'] = $registration->num_classes;
 
+        $data['start'] = (!isset($data['start'])) ? $registration->start : $data['start'];
+
         $data['end']        = $this->generateEndRegistrationDate($data);
         $data['class_week'] = json_encode($data['class']);
 
@@ -124,7 +126,7 @@ class RegistrationService {
        }
 
 
-        $this->generateClasses($registration, $data['class']);
+        $this->generateClasses($registration, $data['class'], true);
 
         Session::flash('success', 'Modalidade matriculada com sucesso');
         return true;
@@ -193,6 +195,12 @@ class RegistrationService {
 
             $avatar = Blade::renderComponent(new ComponentsAvatar($registration->student->user, '25px'));
 
+            $value = currency($registration->value);
+
+            if(!user_can()) {
+                $value = "-";
+            }
+
             $response[] = [
                 'name' => $avatar . '<a href="'.route('student.show', $registration->student).'">'.$registration->student->user->name.'</a>' ,
                 'modality' => $registration->modality->name,
@@ -202,7 +210,7 @@ class RegistrationService {
                 'plan' => $registration->planDescription,
                 'start' => $registration->start->format('d/m/Y'),
                 'end' => $registration->end->format('d/m/Y'),
-                'value' => currency($registration->value),
+                'value' => $value,
                 'created_at' => $registration->created_at->format('d/m/Y H:i:s')
             ];
         }
@@ -210,10 +218,12 @@ class RegistrationService {
         return ['data' => $response];
     }
 
-    private function generateClasses(Registration $registration, $classes) {
+    private function generateClasses(Registration $registration, $classes, $delete=false) {
         $cls = [];
 
-        // $registration->classes()->where('status', 0)->delete();
+        if($delete) {
+            $registration->classes()->where('status', 0)->delete();
+        }
 
         $allModalityClass = Classes::
                             where('modality_id', $registration->modality_id)
