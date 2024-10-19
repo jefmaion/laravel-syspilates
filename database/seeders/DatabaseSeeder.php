@@ -22,7 +22,9 @@ class DatabaseSeeder extends Seeder
 
             UserSeeder::class,
             StudentSeeder::class,
-            PaymentMethodSeeder::class
+            PaymentMethodSeeder::class,
+
+            PermissionSeeder::class,
         ]);
     }
 }

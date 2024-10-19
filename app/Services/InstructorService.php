@@ -24,6 +24,9 @@ class InstructorService {
             $instructor = (new Instructor())->fill($data['instructor']);
             $instructor->user()->associate($user)->save();
 
+            $user->assignRole('Instrutor');
+
+
             Avatar::create($user->shortName)
                 ->setFontFamily('Laravolt')
                 ->setDimension(128, 128)

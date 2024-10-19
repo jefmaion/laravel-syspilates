@@ -46,6 +46,9 @@ class CalendarController extends Controller
 
 
     public function index(Request $request) {
+
+        // dd(auth()->user()->getPermissionNames());
+
         $instructors = $this->instructorService->listToSelectBox();
         $students    = $this->studentService->listToSelectBox();
         $modalities  = $this->modalityService->listToSelectBox();

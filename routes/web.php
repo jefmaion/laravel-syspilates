@@ -18,6 +18,7 @@ use App\Http\Controllers\StudentRegistrationController;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\TestController;
 use App\Http\Middleware\CheckTenant;
+use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -62,6 +63,18 @@ Route::get('/optimize', function() {
 });
 
 Route::get('/', function () {
+
+    // $user1 = User::where('email', 'jefmaion@hotmail.com')->first();
+    // $user2 = User::where('email', 'gleicelilica@hotmail.com')->first();
+
+    // setPermissionsTeamId(1);
+    // $user1->assignRole('Super');
+    // $user2->assignRole(['Administrador', 'Instrutor']);
+
+    // setPermissionsTeamId(2);
+    // $user1->assignRole('Super');
+    // $user2->assignRole(['Administrador', 'Instrutor']);
+
     return redirect(route('login'));
 });
 
@@ -72,6 +85,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::middleware(['auth', 'tenant'])->group(function() {
+
+    
 
     Route::get('/welcome', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::get('/tenant/{tenant}/change', [TenantController::class, 'change'])->withoutMiddleware([CheckTenant::class])->name('tenant.change');
@@ -121,7 +136,7 @@ Route::middleware(['auth', 'tenant'])->group(function() {
     Route::resource('/registration', RegistrationController::class);
 
 
-
+  
 
     
 });

@@ -19,6 +19,11 @@ class CheckTenant
         if(!session()->has('tenant_id')) {
             return redirect('/dashboard');
         }
+
+        if(!empty(auth()->user())){
+            // session value set on login
+            setPermissionsTeamId(session('tenant_id'));
+        }
        
         return $next($request);
     }

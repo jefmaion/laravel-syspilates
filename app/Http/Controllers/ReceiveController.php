@@ -9,7 +9,9 @@ use App\Models\PaymentMethod;
 use App\Models\Student;
 use App\Models\Transaction;
 use App\Services\TransactionService;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ReceiveController extends Controller
 {
@@ -28,6 +30,7 @@ class ReceiveController extends Controller
      */
     public function index(Request $request)
     {
+        Gate::authorize('viewAny', Transaction::class);
 
         if($request->ajax()) {
             return response()->json($this->transactionService->listReceivableToDataTable($request->get('from'), $request->get('to')));

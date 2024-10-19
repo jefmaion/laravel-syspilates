@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Actions\SetTenantToShow;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
@@ -32,14 +33,19 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if(auth()->user()->tenants()->count() > 1) {
-            return redirect()->intended(RouteServiceProvider::HOME);
-        }
+        // if(auth()->user()->tenants()->count() > 1) {
+        //     return redirect()->intended(RouteServiceProvider::HOME);
+        // }
 
-        $tenant = auth()->user()->tenants->first();
-        session()->put('tenant_id', $tenant->id);
-        session()->put('tenant_name', $tenant->name);
-        session()->put('tenant_theme', $tenant->theme);
+        // $tenant = auth()->user()->tenants->first();
+        // session()->put('tenant_id', $tenant->id);
+        // session()->put('tenant_name', $tenant->name);
+        // session()->put('tenant_theme', $tenant->theme);
+
+        $tenant = auth()->user()->tenants()->first();
+
+
+        SetTenantToShow::run($tenant);
         
         return redirect()->route('calendar.index');
         

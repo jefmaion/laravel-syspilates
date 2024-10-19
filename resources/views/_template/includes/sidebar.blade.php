@@ -21,7 +21,7 @@
         </div>
 
         <!-- SidebarSearch Form -->
-        <div class="form-inline">
+        {{-- <div class="form-inline">
             <div class="input-group" data-widget="sidebar-search">
                 <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
                 <div class="input-group-append">
@@ -30,7 +30,7 @@
                     </button>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -79,7 +79,7 @@
                     </a>
                 </li>
 
-
+                @role(['Administrador'])
                 <li class="nav-item">
                     <a href="{{ route('instructor.index') }}" class="nav-link {{ (\Request::is('instructor*')) ? 'active' : '' }}">
                         <i class="nav-icon fas fa-user-graduate"></i>
@@ -89,6 +89,7 @@
                     </a>
                 </li>
 
+
                 <li class="nav-item">
                     <a href="{{ route('exercice.index') }}" class="nav-link {{ (\Request::is('exercice*')) ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tools"></i>
@@ -97,7 +98,7 @@
                         </p>
                     </a>
                 </li>
-
+ 
                 <li class="nav-item">
                     <a href="{{ route('modality.index') }}" class="nav-link {{ (\Request::is('modality*')) ? 'active' : '' }}">
                         <i class="nav-icon fa fa-tag" aria-hidden="true"></i>
@@ -106,18 +107,13 @@
                         </p>
                     </a>
                 </li>
+                @endrole
 
-                <li class="nav-item">
-                    <a href="{{ route('category.index') }}" class="nav-link {{ (\Request::is('category*')) ? 'active' : '' }}">
-                        <i class="nav-icon far fa-list-alt"></i>
-                        <p>
-                            Categorias
-                        </p>
-                    </a>
-                </li>
 
                 
-               @if(user_can())
+
+                
+               @role(['Administrador'])
 
                 <li class="nav-header">FINANCEIRO</li>
 
@@ -130,6 +126,14 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a href="{{ route('category.index') }}" class="nav-link {{ (\Request::is('category*')) ? 'active' : '' }}">
+                        <i class="nav-icon far fa-list-alt"></i>
+                        <p>
+                            Categorias
+                        </p>
+                    </a>
+                </li>
                 {{-- <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-money-bill-wave-alt"></i>
@@ -169,7 +173,7 @@
                 
 
                  --}}
-                  @endif
+                  @endrole
 
                 {{-- <li class="nav-item">
                     <a href="#" class="nav-link">
