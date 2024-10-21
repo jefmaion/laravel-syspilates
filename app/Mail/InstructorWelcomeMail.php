@@ -32,8 +32,9 @@ class InstructorWelcomeMail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.instructor_welcome')
+        return $this->markdown('vendor.mail.instructor_welcome')
             ->with([
+                'user' => $this->instructor,
                 'instructorName' => $this->instructor->name,
                 'password' => $this->password,
             ]);

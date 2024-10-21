@@ -10,6 +10,7 @@ use App\Http\Controllers\FilesController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\InstructorModalityController;
 use App\Http\Controllers\ModalityController;
+use App\Http\Controllers\PasswordChangeController;
 use App\Http\Controllers\ReceiveController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\StudentClassController;
@@ -37,7 +38,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/config-cache', function() {
     Artisan::call('config:cache');
     return redirect()->back();
-}); 
+});
 
 // Clear application cache
 Route::get('/clear-cache', function() {
@@ -86,7 +87,9 @@ Route::get('/dashboard', function () {
 
 Route::middleware(['auth', 'tenant'])->group(function() {
 
-    
+
+
+
 
     Route::get('/welcome', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::get('/tenant/{tenant}/change', [TenantController::class, 'change'])->withoutMiddleware([CheckTenant::class])->name('tenant.change');
@@ -99,7 +102,7 @@ Route::middleware(['auth', 'tenant'])->group(function() {
 
     Route::resource('/instructor', InstructorController::class);
     Route::resource('/instructor{instructor}/modality', InstructorModalityController::class)->names('instructor.modality');
-    
+
     Route::resource('/modality', ModalityController::class);
     Route::resource('/exercice', ExerciceController::class);
     Route::resource('/category', CategoryController::class);
@@ -108,7 +111,7 @@ Route::middleware(['auth', 'tenant'])->group(function() {
     Route::post('/receive/get',     [ReceiveController::class, 'receive'])->name('receive.receve');
     Route::post('/receive/delete', [ReceiveController::class, 'delete'])->name('receive.delete');
     Route::resource('/receive', ReceiveController::class);
-    
+
     Route::post('/calendar/event', [CalendarController::class, 'event'])->name('calendar.event');
     Route::get('/calendar/list', [CalendarController::class, 'list'])->name('calendar.list');
     Route::get('/calendar/day/{day}', [CalendarController::class, 'day'])->name('calendar.day');
@@ -127,7 +130,7 @@ Route::middleware(['auth', 'tenant'])->group(function() {
 
     // Route::resource('class/experimental', ExperimentalClassController::class);
 
-    
+
     Route::get('/files', [FilesController::class, 'index'])->name('files.index');
     Route::get('/files/add', [FilesController::class, 'create'])->name('files.create');
     Route::post('/files/add', [FilesController::class, 'store'])->name('files.store');
@@ -136,9 +139,9 @@ Route::middleware(['auth', 'tenant'])->group(function() {
     Route::resource('/registration', RegistrationController::class);
 
 
-  
 
-    
+
+
 });
 
 require __DIR__.'/auth.php';

@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-12 col-xl-6 ofsfset-md-3">
+    <div class="col-12 col-xl-12 ofsfset-md-3">
 
         <div class="card card-outline card-{{ theme() }}">
 
@@ -31,10 +31,29 @@
                     </div>
                 </div>
 
+                @if(!isset($instructor->id))
+
+
+                <h6 class="my-3 border-bottom"><strong>4. Acesso</strong></h6>
+                <div class="row">
+
+                    <div class="col-6  form-group">
+                        <label></label>
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" name="send-access" class="custom-control-input" id="customSwitch1">
+                            <label class="custom-control-label" for="customSwitch1">Gerar senha de acesso e enviar por email</label>
+                            </div>
+                    </div>
+
+
+                </div>
+
+                @endif
+
 
             </div>
 
-            <div class="card-footer text-right">
+            <div class="card-footer">
                 <a name="" id="" class="mr-4 text-muted" href="{{ (isset($instructor)) ? route('instructor.show', $instructor) : route('instructor.index') }}"
                     role="button">
                     <x-icon icon="back">Voltar</x-icon>

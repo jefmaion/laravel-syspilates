@@ -31,6 +31,10 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
+        if (auth()->user()->first_access == 1) {
+            return redirect()->route('password.change'); // Rota para trocar a senha
+        }
+
         $request->session()->regenerate();
 
         // if(auth()->user()->tenants()->count() > 1) {
@@ -42,13 +46,20 @@ class AuthenticatedSessionController extends Controller
         // session()->put('tenant_name', $tenant->name);
         // session()->put('tenant_theme', $tenant->theme);
 
+        // dd(auth()->user());
+
+
+
+
         $tenant = auth()->user()->tenants()->first();
 
 
         SetTenantToShow::run($tenant);
-        
+
+
+
         return redirect()->route('calendar.index');
-        
+
     }
 
     /**

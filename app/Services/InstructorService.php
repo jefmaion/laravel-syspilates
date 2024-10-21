@@ -20,9 +20,11 @@ class InstructorService {
 
     public function createInstructor($data) {
 
-        $password = Str::random(8);
 
+
+        $password = Str::random(8);
         $data['user']['password'] = bcrypt($password);
+        $data['user']['first_access'] = 1;
 
 
         try {
@@ -35,7 +37,9 @@ class InstructorService {
 
             // Mail::to($teacher->email)->send(new TeacherWelcomeMail($teacher, $password));
 
-            Mail::to($user->email)->send(new InstructorWelcomeMail($user, $password));
+            if(isset($data['send-access'])) {
+                Mail::to($user->email)->send(new InstructorWelcomeMail($user, $password));
+            }
 
 
             Avatar::create($user->shortName)
