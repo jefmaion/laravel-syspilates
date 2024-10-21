@@ -24,58 +24,58 @@ class PermissionSeeder extends Seeder
             'Aluno' => [],
             'Administrador' => [
                 'list.registration',
-                'create.registration', 
-                'show.registration', 
-                'update.registration', 
+                'create.registration',
+                'show.registration',
+                'update.registration',
                 'delete.registration',
 
                 'list.user',
-                'create.user', 
-                'show.user', 
-                'update.user', 
+                'create.user',
+                'show.user',
+                'update.user',
                 'delete.user',
 
                 'list.instructor',
-                'create.instructor', 
-                'show.instructor', 
-                'update.instructor', 
+                'create.instructor',
+                'show.instructor',
+                'update.instructor',
                 'delete.instructor',
 
                 'list.modality',
-                'create.modality', 
-                'show.modality', 
-                'update.modality', 
+                'create.modality',
+                'show.modality',
+                'update.modality',
                 'delete.modality',
 
                 'list.monthly',
-                'create.monthly', 
-                'show.monthly', 
-                'update.monthly', 
+                'create.monthly',
+                'show.monthly',
+                'update.monthly',
                 'delete.monthly',
 
                 'list.payable',
-                'create.payable', 
-                'show.payable', 
-                'update.payable', 
+                'create.payable',
+                'show.payable',
+                'update.payable',
                 'delete.payable',
             ],
 
             'Instrutor' => [
                 'list.registration',
-                'create.registration', 
-                'show.registration', 
-                'update.registration', 
+                'create.registration',
+                'show.registration',
+                'update.registration',
                 'delete.registration',
 
                 'list.user',
-                'create.user', 
-                'show.user', 
-                'update.user', 
+                'create.user',
+                'show.user',
+                'update.user',
 
                 'list.monthly',
-                'create.monthly', 
-                'show.monthly', 
-                'update.monthly', 
+                'create.monthly',
+                'show.monthly',
+                'update.monthly',
             ]
         ];
 
@@ -103,14 +103,17 @@ class PermissionSeeder extends Seeder
 
         $user1 = User::where('email', 'jefmaion@hotmail.com')->first();
         $user2 = User::where('email', 'gleicelilica@hotmail.com')->first();
+        $user3 = User::where('email', 'helloreis@hotmail.com')->first();
 
         setPermissionsTeamId(1);
         $user1->assignRole('Super');
         $user2->assignRole(['Administrador', 'Instrutor']);
+        $user3->assignRole(['Administrador', 'Instrutor']);
 
         setPermissionsTeamId(2);
         $user1->assignRole('Super');
         $user2->assignRole(['Instrutor']);
+        $user3->assignRole(['Instrutor']);
 
 
     }

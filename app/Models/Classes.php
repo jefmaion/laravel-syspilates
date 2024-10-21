@@ -19,7 +19,7 @@ class Classes extends Model
 
 
     public function instructor() {
-        return $this->belongsTo(Instructor::class);
+        return $this->belongsTo(Instructor::class)->with('user');
     }
 
     public function student() {
@@ -50,7 +50,7 @@ class Classes extends Model
         return $this->repositions()->orderBy('date', 'desc')->limit(1)->first();
     }
 
-    
+
     public function getCanRepositionAttribute() {
         if(in_array($this->situation, ['CC', 'FJ']) &&  !in_array($this->type, ['AE', 'RP']) && !$this->repositions) {
             return true;
@@ -84,9 +84,9 @@ class Classes extends Model
 
         if(isset($this->student->user)) {
             return $this->student->user->phone_wpp;
-            
+
         }
-        
+
         return $this->phone_wpp;
     }
 
@@ -133,16 +133,16 @@ class Classes extends Model
             $pendencies[] = ['status' => 'danger', 'message' => 'Pagamentos a realizar!'];
         }
 
-        if($this->student->repositions()->count()) { 
+        if($this->student->repositions()->count()) {
             $pendencies[] = ['status' => 'warning', 'message' => 'Reposições não agendadas!'];
         }
 
-        if($this->registration->daysToRenew <= 3) { 
+        if($this->registration->daysToRenew <= 3) {
             $pendencies[] = ['status' => 'info', 'message' => 'Matrícula em '.$this->registration->modality->name . ' ' .  $this->registration->position];
         }
 
         return $pendencies;
     }
 
-    
+
 }
