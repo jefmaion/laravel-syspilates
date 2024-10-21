@@ -1,5 +1,5 @@
 <aside class="main-sidebar bg-custo7m-sidebar-dark  os-theme-light  sidebar-light-{{ theme() }} sideba7r-dark-{{ session('tenant_theme') }}  elevation-4" stsyle="background-color: #f4f6f9;">
-    
+
     <!-- Brand Logo -->
     <a href="{{ asset('template') }}/index3.html" class="brand-link bg-{{ theme() }} border-bottom-0">
         <img src="{{ asset('template') }}/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
@@ -63,7 +63,7 @@
                         <i class="nav-icon fa fa-users"></i>
                         <p>
                             Matrículas
-                            
+
                         </p>
                     </a>
                 </li>
@@ -73,13 +73,13 @@
                         <i class="nav-icon fa fa-users"></i>
                         <p>
                             Alunos
-                            
+
                         </p>
                         <span class="badge badge-primary right">{{ auth()->user()->countStudents() }}</span>
                     </a>
                 </li>
 
-                @role(['Administrador'])
+                @role(['Administrador', 'Super'])
                 <li class="nav-item">
                     <a href="{{ route('instructor.index') }}" class="nav-link {{ (\Request::is('instructor*')) ? 'active' : '' }}">
                         <i class="nav-icon fas fa-user-graduate"></i>
@@ -98,7 +98,7 @@
                         </p>
                     </a>
                 </li>
- 
+
                 <li class="nav-item">
                     <a href="{{ route('modality.index') }}" class="nav-link {{ (\Request::is('modality*')) ? 'active' : '' }}">
                         <i class="nav-icon fa fa-tag" aria-hidden="true"></i>
@@ -110,10 +110,10 @@
                 @endrole
 
 
-                
 
-                
-               @role(['Administrador'])
+
+
+               @role(['Administrador', 'Super'])
 
                 <li class="nav-header">FINANCEIRO</li>
 
@@ -170,7 +170,7 @@
                     </a>
                 </li>
 
-                
+
 
                  --}}
                   @endrole

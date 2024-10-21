@@ -21,6 +21,8 @@ class InstructorController extends Controller
     public function index(Request $request)
     {
 
+
+
         if($request->ajax()) {
             return response()->json($this->instructorService->listToDataTable());
         }

@@ -2,12 +2,15 @@
 
 namespace App\Services;
 
+use App\Mail\InstructorWelcomeMail;
 use App\Models\Instructor;
 use App\Models\User;
 use App\View\Components\Avatar as ComponentsAvatar;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Mail;
 use Laravolt\Avatar\Facade as Avatar;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class InstructorService {
 
@@ -17,7 +20,10 @@ class InstructorService {
 
     public function createInstructor($data) {
 
-        $data['user']['password'] = bcrypt('123123123');
+        $password = Str::random(8);
+
+        $data['user']['password'] = bcrypt($password);
+
 
         try {
             $user = User::create($data['user']);
@@ -25,6 +31,11 @@ class InstructorService {
             $instructor->user()->associate($user)->save();
 
             $user->assignRole('Instrutor');
+            $user->tenants()->sync([session('tenant_id')]);
+
+            // Mail::to($teacher->email)->send(new TeacherWelcomeMail($teacher, $password));
+
+            Mail::to($user->email)->send(new InstructorWelcomeMail($user, $password));
 
 
             Avatar::create($user->shortName)
@@ -34,7 +45,7 @@ class InstructorService {
                 ->save(public_path('/avatar/' . $user->id . '.png', 100));
 
         } catch (\Exception $e) {
-            
+
             $message = $e->errorInfo[2] ?? $e->getMessage();
 
             Session::flash('error', 'Não foi possível cadastrar o professor. ('. $message.')');

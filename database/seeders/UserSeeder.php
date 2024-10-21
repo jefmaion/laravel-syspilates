@@ -22,11 +22,22 @@ class UserSeeder extends Seeder
             'password' =>bcrypt('123123123')
         ]);
 
+        $user2 = User::create([
+            'name' => 'Gleice Reis',
+            'email' => 'gleicelilica@hotmail.com',
+            'password' =>bcrypt('123123123')
+        ]);
+
         $tenants = Tenant::all();
 
         foreach($tenants as $tenant) {
             TenantUser::create([
                 'user_id' => $user->id,
+                'tenant_id' => $tenant->id
+            ]);
+
+            TenantUser::create([
+                'user_id' => $user2->id,
                 'tenant_id' => $tenant->id
             ]);
         }
