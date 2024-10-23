@@ -55,8 +55,8 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
 
-                Route::get('/password/change', [PasswordChangeController::class, 'showChangeForm'])->name('password.change');
-                Route::post('/password/change', [PasswordChangeController::class, 'changePassword'])->name('password.first.change');
+    Route::get('/password/change', [PasswordChangeController::class, 'showChangeForm'])->name('password.change');
+    Route::post('/password/change', [PasswordChangeController::class, 'changePassword'])->name('password.first.change');
 
 
 });

@@ -100,6 +100,7 @@ Route::middleware(['auth', 'tenant'])->group(function() {
     Route::post('/student/{student}/registration/{registration}/renew',[StudentRegistrationController::class, 'renewStore'])->name('student.registration.renew.store');
     Route::resource('/student/{student}/registration/{registration}/class', StudentClassController::class)->names('student.registration.class');
 
+    Route::post('/instructor/{instructor}/password', [InstructorController::class, 'sendPassword'])->name('instructor.password');
     Route::resource('/instructor', InstructorController::class);
     Route::resource('/instructor{instructor}/modality', InstructorModalityController::class)->names('instructor.modality');
 

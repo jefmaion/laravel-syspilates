@@ -6,6 +6,10 @@
             </a>
         </x-slot>
 
+        <div class="mb-4 text-sm text-gray-600">
+            Como é seu primeiro acesso, por favor, mude a sua senha!
+        </div>
+
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
@@ -16,14 +20,14 @@
 
             <!-- Password -->
             <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
+                <x-label for="password" value="Nova Senha" />
 
                 <x-input id="password" class="block mt-1 w-full" type="password" name="password" required />
             </div>
 
             <!-- Confirm Password -->
             <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
+                <x-label for="password_confirmation" value="Confirmação da Nova Senha" />
 
                 <x-input id="password_confirmation" class="block mt-1 w-full"
                                     type="password"

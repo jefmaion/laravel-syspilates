@@ -14,6 +14,15 @@ use Illuminate\Support\Str;
 
 class InstructorService {
 
+    public function resendPassword(Instructor $instructor) {
+        $password = Str::random(8);
+
+        $instructor->user->first_access = 1;
+        $instructor->user->password = bcrypt($password);
+        $instructor->user->save();
+        Mail::to($instructor->user->email)->send(new InstructorWelcomeMail($instructor->user, $password));
+    }
+
     public function findInstructor($id) {
         return Instructor::with('user')->with('classes.student.user')->with('classes.modality')->find($id);
     }

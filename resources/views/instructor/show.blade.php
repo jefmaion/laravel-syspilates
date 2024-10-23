@@ -42,7 +42,7 @@
                     <li class="list-group-item">
                         <b>Cadastrado em:</b> <span class="float-right">{{ $instructor->created_at->format('d/m/Y H:i:s') }}</span>
                     </li>
-              
+
                 </ul>
 
 
@@ -109,6 +109,13 @@
                         <a class="nav-link" href="#settings" data-toggle="tab">
                             <i class="fas fa-user-edit    "></i>
                             Dados Cadastrais
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#access" data-toggle="tab">
+                            <i class="fas fa-user-edit    "></i>
+                            Acesso ao Sistema
                         </a>
                     </li>
                 </ul>
@@ -185,35 +192,35 @@
                         <form action="{{ route('instructor.modality.store', $instructor) }}" method="post">
                             @csrf
                             <div class="row">
-        
+
                                 <div class="col-4  form-group">
                                     <label>Modalidade</label>
                                     <x-form.select name="modality_id" class="select2 w-100" value="" :options="$modalities" />
                                 </div>
-        
+
                                 <div class="col  form-group">
                                     <label>Percentual</label>
                                     <x-form.input type="text" name="percentual" value="" />
                                 </div>
-        
+
                                 <div class="col  form-group">
                                     <label>Calcular na Falta?</label>
                                     <x-form.select name="calc_on_absense" class="select2 w-100"  :options="[1 => 'Sim', 0 => 'Não']" />
                                 </div>
-        
+
                                 <div class="col d-flex align-items-center">
-                                   
+
                                     {{--  --}}
                                     <button type="submit" class="btn bg-{{ theme() }} btn-block">
-                                    <i class="fas fa-check-double    "></i> Atribuir Modalidade</button> 
+                                    <i class="fas fa-check-double    "></i> Atribuir Modalidade</button>
                                 </div>
-            
-                                
+
+
                             </div>
                         </form>
 
-               
-                        
+
+
                     </div>
 
                     <div class="tab-pane" id="timeline">
@@ -331,6 +338,20 @@
 
 
                             <button type="submit" class="btn btn-primary">Submit</button>
+
+                        </form>
+                    </div>
+
+                    <div class="tab-pane" id="access">
+
+
+
+                        <form action="{{ route('instructor.password', $instructor) }}" method="post">
+
+                            @csrf
+
+                            <button type="submit" class="btn btn-primary">Reenviar Senha de Acesso</button>
+
 
                         </form>
                     </div>
@@ -468,6 +489,6 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     window.location.hash = e.target.hash;
 });
 
-    
+
 </script>
 @endsection

@@ -117,4 +117,8 @@ class InstructorController extends Controller
         $this->instructorService->deleteInstructor($instructor);
         return redirect()->route('instructor.index');
     }
+
+    public function sendPassword(Instructor $instructor) {
+        $this->instructorService->resendPassword($instructor);
+    }
 }
