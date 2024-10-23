@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateInstructorRequest;
 use App\Models\Modality;
 use App\Services\InstructorService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class InstructorController extends Controller
 {
@@ -119,6 +120,15 @@ class InstructorController extends Controller
     }
 
     public function sendPassword(Instructor $instructor) {
+
+        if(empty($instructor->user->email)) {
+            Session::flash('error', 'Não existe email cadastrado para esse professor!');
+            return redirect()->route('instructor.show', $instructor);
+        }
+
         $this->instructorService->resendPassword($instructor);
+
+        Session::flash('success', 'Email enviado!!');
+        return redirect()->route('instructor.show', $instructor);
     }
 }
